@@ -1,0 +1,15 @@
+server:
+  port: 7001
+eureka:
+  instance:
+    hostname: com7001.eureka   #注意：这里先前在hosts中配置的域名是com.eureka.7001 ,这种域名是不允许的
+    #当然，集群这里的域名并不一定非要改，都写localhost也可以，这里只不过做下区分
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+#      defaultZone: http://com7002.eureka:7002/eureka/  #集群之间相互注册
+       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+ # server:
+ #   enable-self-preservation: false #eureka服务的自我保护模式(默认是开启)
+ #   eviction-interval-timer-in-ms: 2000 #2秒内没有接受到服务的心跳则剔除服务

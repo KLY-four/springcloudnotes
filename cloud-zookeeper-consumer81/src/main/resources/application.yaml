@@ -1,0 +1,12 @@
+server:
+  port: 81
+spring:
+  application:
+    name: cloud-zookeeper-consumer81
+  cloud:
+    zookeeper:
+      connect-string: 192.168.254.128:2181
+
+    #zookeeper采用的是临时节点(非持久节点)，也就是如果注册服务挂了之后(也就是zookeeper在一定时间接收不到心跳)
+    #那么zookeeper会直接剔除该注册服务，而不像eureka那样带有保护机制而在一定时间内(默认90s还会保留其服务
+    #服务是否注册成功，可以在linux启动zookeeper的客户端去查看 ./zkCli.sh    ls /services

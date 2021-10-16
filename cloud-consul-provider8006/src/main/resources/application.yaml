@@ -1,0 +1,13 @@
+server:
+  port: 8006
+spring:
+  application:
+    name: cloud-consul-provider8006
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        #consul和zookeeper的使用基本一致，同时都是临时节点模式，也就是注册服务挂了之后立即剔除
+        #gui界面  localhost：8500

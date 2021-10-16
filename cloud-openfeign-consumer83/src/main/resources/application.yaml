@@ -1,0 +1,19 @@
+server:
+  port: 83
+spring:
+  application:
+    name: cloud-openfeign-consumer83
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+#ribbon:
+ # ReadTimeout: 5000  #配置feign与远程服务建立连接的超时时间
+  #ConnectTimeout: 5000 #配置feign的远程服务调用超时时间
+        #feign本身就和restTemplate一样是一个http客户端(也就是用来发送http请求的)，只不过feign进行了
+        #一点伪装(也就是不像restTemplate那样看起来明了)，feign也是内置了ribbon来做负载均衡。
+        #其次，feign通过注解加接口的方式来做到声明式的服务调用(就和dao层接口和mapper的绑定类似)
+        #openfeign则是在feign的基础上支持了RequestMapping注解。
+        #openfeign只在消费端配置，服务端是不需要的。也就是在消费端做负载均衡和服务调用。(本地负载均衡，也就是jvm层面的)

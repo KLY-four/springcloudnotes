@@ -1,0 +1,91 @@
+#网关的极核心就是频闭客户端对目标服务的直接访问，而是由网关来进行访问
+#  网关的核心：路由 断言 过滤器
+#  路由是什么呢？路由实际上就是一个模块，有一个或多个(id+url+断言+过滤器)这样的组合构成
+
+server:
+  port: 8008
+
+eureka:
+  instance:
+    hostname: cloud-getaway-server8008
+  client:
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://localhost:7001/eureka
+
+spring:
+  application:
+    name: cloud-getaway-server8008
+  cloud:
+    gateway:
+      #这种路由的配置无法做到负载均衡，所以我们需要进行动态路由的配置
+#      routes: #配置路由
+#        - id: payment_routh #路由的ID，没有固定规则但要求唯一，建议配合服务名
+#          uri: http://localhost:8001   #匹配后提供服务的路由地址
+#          predicates:
+#            - Path=/select   #断言,路径相匹配的进行路由 *是通配符
+#
+#        - id: payment_routh2
+#          uri: http://localhost:8001
+#          predicates:
+#            - Path=/payment/lb/**   #断言,路径相匹配的进行路由
+      discovery:
+        locator:
+          enabled: true   #开启gateway的服务发现，开启后gateway后面可以根据服务名称去注册中心上找到服务地址，然后做负载均衡
+          #动态路由配置，实际上就是将ip+端口改为服务名称
+      routes:
+        - id: payment_routh #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          #uri: http://localhost:8001
+          uri: lb://CLOUD-PAYMENT-SERVICE  #注意：动态路由的协议为lb，这个表示开启gateway的负载均衡
+          predicates:
+            - Path=/select/**   #断言,路径相匹配的进行路由
+
+        - id: payment_routh2
+          #uri: http://localhost:8001   #匹配后提供服务的路由地址
+          uri: lb://CLOUD-PAYMENT-SERVICE
+          predicates:
+            - Path=/insert/**   #断言,路径相匹配的进行路由
+#    predicates(断言)讲解：
+#        网关中断言下的属性有很多(不仅仅只有上面用到的path)，以下具体讲讲其他的作用
+#            1、 时间级别：
+#            - After  表示在指定时间之后的日期才能进行匹配
+#            - Before 表示在指定时间之前的日期才能进行匹配
+#            - Between 表示在指定时间之间的日期才能进行匹配
+#            用法：
+#            predicates:
+#              - After 2021-10-16T16:33:44.769+08:00[Asia/Shanghai]
+#              - Path=/insert/**
+#              表示：只有在该日期之后的请求，才能匹配成功(同时也需要path匹配成功)
+#
+#            2、 Cookie级别
+#              Cookie 表示请求中需要带有指定的cookie信息才能进行断言匹配
+#             用法：
+#              predicates:
+#              - Cookie key value  #value可以是正则表达式
+#              - Path=/insert/**
+#              表示：当请求的cookie中某个k-v能和指定的key-value匹配时，则匹配断言成功(同时也需要path能匹配)
+#
+#            3、 Header(请求头)级别
+#            Header 表示请求头中的某个k-v能和断言中指定的信息匹配成功
+#            用法：
+#            predicates:
+#              - Header key value  #value可以是正则表达式
+#              - Path=/insert/**
+#            表示：当请求头中的某个k-v能和指定的key-value匹配时，则匹配断言成功(同时也需要path能匹配)
+#
+#            4、其他
+#             如：Host 、Method 、Path等这里就不一个个解析了。
+#         除此之外、这些属性是可以一起连用的(但日期级别中的三个同时只能有一个出现)、连用时需要保证每一个属性
+#        - 都匹配成功，那么才是断言成功。
+#----------------------------------------------------------------------------------------------------------
+#       网关中的过滤器，gateway自己提供的过滤去有很多种，但是我们一般都用自定义的。所以这里就不讲解官方的呢
+#       网关中的过滤器主要是对请求做一些处理：
+#        请求到达网关服务--进行断言匹配---进行过滤器处理---到达目标服务
+#      如何实现自定义网关呢?
+#         我在项目中进行了实现，实现后直接生效，不需要在yaml中配置什么
+#
+
+
+
+
