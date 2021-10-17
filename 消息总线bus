@@ -1,0 +1,20 @@
+我之前那3366这个client来作为消息总线得测试例子
+这里得说一下，消息总线并不是说取消了我们得手动刷(也就是还是需要我们自己发送post请求去激活)
+bus得作用只是说通过事件通知，让我们不需要对每一个client都发送post请求了。而是只需要对某一个client或某一个server发送一次post
+请求，bus就会为我们去对所有得client都进行刷新(当然。这里指的所有得client是指采用了bus得client，没有使用bus得client当然还是
+需要我们自己去激活)
+
+bus得原理是什么呢？
+    首先bus得api中会有一个主题cloud bus，所有使用bus的client都会订阅这个主题(包括server)。当我们对server发送一次post请求后
+    该信息会被存放到bus主题中，client自然也就获取到该信息了，然后进行client激活
+
+    或者我们对client发送一次post，这也是一样的道理。
+
+    当然、不管是server端还是client端(还需要加上刷新注解)，我们都需要配置消息队列和监控端口的信息
+    终端对server发送post请求  curl -X POST "http://localhost:3344/actuator/bus-refresh"
+
+    如果需要进行定点通知，也就是只让部分client生效，那么可以在post请求后面进行指定
+    curl -X POST "http://localhost:3344/actuator/bus-refresh/服务名称:port
+    服务名称就是spring:application:name:的值
+
+目前自测下消息总线配置没有问题，但bus却没生效，目前该问题未解决

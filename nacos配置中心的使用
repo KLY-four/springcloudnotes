@@ -1,0 +1,37 @@
+我们在nacos的界面端创建配置文件时，可以清楚的看到有三级数据
+namespace group dataid
+三者的层级关系
+namespace>group>dataid
+
+namespace用于运行环境的指定
+
+group用于组名(比如：一个系统有多个开发小组，那么就可以以这些小组来区分)
+
+dataid则是配置文件名 由服务名称-运行环境.文件类型组成
+
+nacos0.7之前的数据默认是存放在nacos自带的数据库中，每个nacos服务都会有一套。
+这样在搭建nacos集群时很可能有数据一致性问题，所以在0.7版本后，nacos支持了mysql
+允许我们将数据存放于mysql中，这样nacos集群就可以共用一套mysql服务了，既便于观察数据，也解决了一致性问题。
+
+切换到mysql很简单，只需要在nacos的application.properties文件中开启mysql的配置即可。
+当然，我们首先得根据nacos提供得sql文件在本地mysql服务中建好各种表
+
+重点：
+  nacos集群的搭建，根据nacos 官网推荐，生产环境nacos必须上集群，并且需要通过nginx做反向代理。
+  通过nginx对外跑路一个域名。进行访问。
+
+  架构图：
+                clinet
+                  |
+                  |
+                nginx集群
+                  |
+                  |
+                nacos集群
+                  |
+                  |
+                mysql集群
+
+目前linux上nacos集群搭建了3台，mysql连的是window上的，nginx只启动了一台。
+在这个过程中遇到一个问题，那就是3台nacos只有一台能用，其原因是内存问题导致有两台起不来。
+具体得情况在游览器博客上已有。

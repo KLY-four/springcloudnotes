@@ -1,0 +1,40 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-confid-server3344
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/KLY-four/spring-cloud-config #github仓库地址
+          search-paths:
+            - spring-cloud-config  #提交的git项目的名称
+      label: master  #分支
+
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://localhost:7001/eureka
+
+management:  #暴露监控节点
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
+
+#spring cloud config是配合git或svn一起使用的，配置文件实际上是存放在git上，然后由config server进行操作。
+#这里有几点要注意：git上的配置文件可以是yml或properties文件(官方推荐yml)
+#               文件命名最好是xx-yy.yml这种格式
+
+#------------------------------------
+# 这里补充一下对config server的请求url格式。
+#  我们的完整访问url格式是  http://ip:port/分支/文件 这种是最常用的，当然这里分支可以不指定，那么会自动使用label
+#  所配置的分支
+

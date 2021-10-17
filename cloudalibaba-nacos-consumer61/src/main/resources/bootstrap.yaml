@@ -1,0 +1,33 @@
+server:
+  port: 61
+spring:
+  application:
+    name: cloudalibaba-nacos-consumer
+  profiles:
+    active: dev   #运行环境
+  cloud:
+    nacos:
+      discovery:    #注册中心地址
+        server-addr: localhost:8848
+      config:      #配置中心地址
+        server-addr: localhost:8848  #如果nacos被nginx代理后，这里的地址就改为nginx的地址
+        file-extension: yaml  #查找的配置文件类型(这里不能是yml,因为nacos不支持)
+       #这里如果配置了文件类型，那么nacos上面的文件命名也要带上这个文件类型，不要以为点击了yaml就可以不用加
+        #group:  #指定访问的组
+        #namespace:  #指定访问的namespaceId（注意：是命名空间id而不是他的名称）
+        #namespace和group都具有默认值，如果我们没有进行自定义配置的话，这两个这可以不加
+
+
+service-url: #这是自定义的属性
+  nacos-user-service: http://cloudalibab-nacos-provider  #供负载使用
+
+#nacos集成了ribbon做负载均衡，所以我们同样用rest Template来做服务调用
+#nacos的文件命令我们要严格蹲守  ：服务名称-运行环境.文件类型  nacos配置中心在启动时时会根据这三部分信息去加载
+
+#注意：自测nacos时，启动一直报
+#     Caused by: com.alibaba.nacos.api.exception.NacosException: endpoint is blank
+#      这样一个错，后来经排查，我们的配置中心的yml文件，必须是bootstrap命名。(当然同时具有application是可以的)
+#      但不能只有application.yml,且配置中心的配置信息需要写在bootstrap。yml中。
+#      其他配置中心也是一样，所以只要是用到配置中心尽量写两个yml。
+
+#nacos的注册中心和配置中心是两个独立的功能，有各自的依赖互不影响，都能单独使用。

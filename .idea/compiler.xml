@@ -8,24 +8,34 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="cloud-privoder-payment8002" />
+        <module name="cloud-confid-server3344" />
+        <module name="cloud-config-client3355" />
         <module name="cloud-hystrix-consumer87" />
         <module name="cloud-eureka-server7001" />
         <module name="cloud-api-commons" />
         <module name="cloud-privoder-payment8001" />
         <module name="cloud-eureka-server7002" />
+        <module name="cloudalibaba-nacos-provider6002" />
         <module name="cloud-zookeeper-consumer81" />
         <module name="cloud-getaway-server8008" />
+        <module name="cloud-stream-rabbit-provider9001" />
         <module name="cloud-openfeign-consumer83" />
         <module name="cloud-consul-consumer82" />
         <module name="cloud-hystrix-provider8007" />
+        <module name="cloudalibaba-nacos-consumer61" />
+        <module name="cloud-config-bus-client3366" />
+        <module name="cloud-stream-rabbit-consumer91" />
         <module name="cloud-zookeeper-provider8004" />
         <module name="cloud-consul-provider8006" />
+        <module name="cloud-stream-rabbit-consumer92" />
+        <module name="cloudalibab-nacos-provider6001" />
         <module name="cloud-consumer-order80" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cloud-provider-parment8001" target="1.8" />
       <module name="cloud-provider-payment8001" target="8" />
+      <module name="config-git" target="8" />
       <module name="Test1" target="1.8" />
     </bytecodeTargetLevel>
   </component>

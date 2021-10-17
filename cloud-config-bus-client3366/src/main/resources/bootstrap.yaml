@@ -1,0 +1,37 @@
+server:
+  port: 3366
+spring:
+  application:
+    name: cloud-config-bus-client3366
+  cloud:
+    config:
+      label: master
+      name: config  #配置文件前缀名
+      profile: dev  #配置文件后缀名 ，client会自动在中间加上”-“，这也就是为什么说命名要以xx-yy.yml的格式了
+      uri: http://localhost:3344 #config server的根路径
+      #这里客户端就会发送http://localhost:3344/master/config-dev.yml请求到server了(通过http请求获取配置信息)
+
+  rabbitmq:  #配置rabbitmq信息
+   host: localhost
+   port: 5672
+   username: guest
+   password: guest
+
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://localhost:7001/eureka
+
+management:  #暴露监控节点
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+#消息总线不需要单独的起服务，而是嵌在config server和config client中(每个都需要引入bus的依赖)
+#  消息总线有两种通知方式：
+#    一、消息总线通知某一个client，此时会将刷新消息存在bus topic中(所以的config client都会订阅bus中的该主题)
+#       以此来达到通知所有的client进行更新。
+#    二、消息总线直接通知config server 然后有config server广播通知所有client
+#
+#  很显然、第二种方式更好。

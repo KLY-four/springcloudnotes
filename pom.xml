@@ -22,6 +22,15 @@
       <module>cloud-hystrix-provider8007</module>
       <module>cloud-hystrix-consumer87</module>
       <module>cloud-getaway-server8008</module>
+      <module>cloud-confid-server3344</module>
+      <module>cloud-config-client3355</module>
+      <module>cloud-config-bus-client3366</module>
+      <module>cloud-stream-rabbit-provider9001</module>
+    <module>cloud-stream-rabbit-consumer91</module>
+    <module>cloud-stream-rabbit-consumer92</module>
+    <module>cloudalibab-nacos-provider6001</module>
+    <module>cloudalibaba-nacos-provider6002</module>
+    <module>cloudalibaba-nacos-consumer61</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -109,8 +118,14 @@
       <artifactId>log4j</artifactId>
       <version>${log4j.version}</version>
     </dependency>
-  </dependencies>
-
+        <dependency>
+          <groupId>com.alibaba.cloud</groupId>
+          <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+          <version>2.2.6.RELEASE</version>
+          <type>pom</type>
+          <scope>import</scope>
+        </dependency>
+      </dependencies>
   </dependencyManagement>
 
   <build>

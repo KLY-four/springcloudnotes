@@ -1,0 +1,41 @@
+server:
+  port: 3355
+
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      label: master
+      name: config  #配置文件前缀名
+      profile: dev  #配置文件后缀名 ，client会自动在中间加上”-“，这也就是为什么说命名要以xx-yy.yml的格式了
+      uri: http://localhost:3344 #config server的根路径
+      #这里客户端就会发送http://localhost:3344/master/config-dev.yml请求到server了(通过http请求获取配置信息)
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+#一般来说，配置中心的启动文件都会写两个，一个是bootstrap.yml这个主要是从配置中心加载配置。
+#如果自己想要补充一写自己的配置文件，那么可以写在application.yml中。当然，bootstrap.yml的优先级较高，如果制定了
+#同样的配置，那么优先加载bootstrap中的信息。
+
+#------------配置信息的刷新
+#  spring cloud config中git上配置文件在修改后，如果我们直接请求config server此时得到的数据会更新。
+#  但是通过config client 去请求config server，是不会获取到最新配置信息的(除非重启client)。
+#  那么如何解决呢？
+#  一、手动刷新
+#  通过引入spring boot的监控框架spring-boot-starter-actuator以及在Controller类上加上@RefreshScope注解。
+#  然后还需要我们在终端手动发送一次post请求 curl -X POST "http://localhost:3355/actuator/refresh"去激活config 客户端
+#  这样我才可以做到不重启client也能刷新配置信息。
+#
+#  这种情况在有很多config client服务时那就很麻烦了，需要发送很多次请求，这样很麻烦。同时可能出现一些问题，那就是某些
+#  client服务需要更新、有些又不想要用最新的配置信息、这样那有如何做到呢？这就需要用到下一章需要将的消息总线了。
+#  消息总线可以让我们只对对一个clientserver或一个client发送一次post请求即可达到所有的client刷新（注意：post请求还是得发一次）
