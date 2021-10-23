@@ -18,7 +18,7 @@ nacos0.7之前的数据默认是存放在nacos自带的数据库中，每个naco
 
 重点：
   nacos集群的搭建，根据nacos 官网推荐，生产环境nacos必须上集群，并且需要通过nginx做反向代理。
-  通过nginx对外跑路一个域名。进行访问。
+  通过nginx对外暴露一个域名。进行访问。
 
   架构图：
                 clinet

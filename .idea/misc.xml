@@ -5,12 +5,16 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/seate-account-module2002/pom.xml" />
+        <option value="$PROJECT_DIR$/seata-account-module2003/pom.xml" />
+        <option value="$PROJECT_DIR$/seate-stroage-module2002/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/Test1/pom.xml" />
         <option value="$PROJECT_DIR$/cloud-provider-payment8001/pom.xml" />
+        <option value="$PROJECT_DIR$/cloud-sentinel-service6001/pom.xml" />
       </set>
     </option>
   </component>

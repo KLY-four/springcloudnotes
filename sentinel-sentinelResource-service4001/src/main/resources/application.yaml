@@ -1,0 +1,30 @@
+server:
+  port: 4001
+
+spring:
+  application:
+    name: sentinel-sentinelResource-service4001
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848  #注册中心
+    sentinel:
+      transport:
+        dashboard: localhost:7777  #sentienl管理程序的地址(我们该服务后面就会被7777这个程序进行监控进行web展示)
+        port: 8720  #sentinel server的启动端口，默认8719，假如被占用了会自动从8719开始依次+1扫描。直至找到未被占用的端口
+
+#springboot监控的配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+#sentienl server是由外部service启动时由sentinel的api自己启动的，而不需要我们自己启动sentinel server.
+#需要启动一个web监控程序，通过下载jar启动即可启动(java -Dserver.port=7777 -jar sentinel-dashboard-1.8.2.jar)，
+#sentienl是直接加在我们的服务之中的，该服务启动时会由sentinel api启动一个sentinel server来监控该service。
+#并通过和web的交互将数据通过web程序展示
+
+#sentinel属于懒加载，我们必须先访问一下sevice，web端才能监控该service
+
+#sentinel 主要做流控(也就是限流)、服务降级、熔断等，这些可以直接在web上配置，但我们需要了解其作用

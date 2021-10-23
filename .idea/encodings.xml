@@ -31,6 +31,8 @@
     <file url="file://$PROJECT_DIR$/cloud-privoder-payment8001/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-privoder-payment8002/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-privoder-payment8002/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-sentienl-service5001/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-sentienl-service5001/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-stream-rabbit-consumer91/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-stream-rabbit-consumer91/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-stream-rabbit-consumer92/src/main/java" charset="UTF-8" />
@@ -47,5 +49,13 @@
     <file url="file://$PROJECT_DIR$/cloudalibaba-nacos-consumer61/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloudalibaba-nacos-provider6002/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloudalibaba-nacos-provider6002/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seata-account-module2003/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seata-account-module2003/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seate-order-module2001/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seate-order-module2001/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seate-stroage-module2002/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seate-stroage-module2002/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sentinel-sentinelResource-service4001/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sentinel-sentinelResource-service4001/src/main/resources" charset="UTF-8" />
   </component>
 </project>

@@ -31,6 +31,12 @@
     <module>cloudalibab-nacos-provider6001</module>
     <module>cloudalibaba-nacos-provider6002</module>
     <module>cloudalibaba-nacos-consumer61</module>
+    <module>cloud-sentinel-service6001</module>
+    <module>cloud-sentienl-service5001</module>
+    <module>sentinel-sentinelResource-service4001</module>
+    <module>seate-order-module2001</module>
+    <module>seate-account-module2003</module>
+    <module>seata-strore-module2003</module>
   </modules>
   <packaging>pom</packaging>
 

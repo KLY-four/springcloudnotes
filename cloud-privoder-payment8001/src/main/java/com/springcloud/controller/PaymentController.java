@@ -17,7 +17,6 @@ import java.util.List;
 @Controller
 @ResponseBody
 public class PaymentController {
-
     @Autowired
     private PaymentService paymentService;
 
